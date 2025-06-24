@@ -9,8 +9,15 @@
 
 :root {
   --color-primary: #4fbf8b;
-  --color-primary-dull: #44ae7c;
+  --color-primary-dull: #bfddcf;
 }
 
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-primary-dull {
+  background-color: var(--color-primary-dull);
+}
 
 
