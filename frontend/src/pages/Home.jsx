@@ -1,9 +1,13 @@
 import React from 'react'
+import MainBanner from '../components/MainBanner';
 
 function Home() {
   return (
-    <div>Home</div>
+    <div className='mt-6'>
+     <MainBanner/>
+    </div>
   )
 }
 
-export default Home
+
+export default Home;
