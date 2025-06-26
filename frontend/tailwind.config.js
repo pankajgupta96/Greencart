@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: 'var(--color-primary)',
-        'primary-dull': 'var(--color-primary-dull)',
+        primary: 'rgb(var(--color-primary) / <alpha-value>)',
+        'primary-dull': 'rgb(var(--color-primary-dull) / <alpha-value>)',
       },
     },
   },
