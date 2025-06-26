@@ -5,14 +5,22 @@ import {Toaster} from 'react-hot-toast';
 import Home from './pages/Home'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Footer from './components/Footer';
+import { useAppContext } from './context/AppContext';
+import Login from './components/Login';
 
 function App() {
   const issellerpath = useLocation().pathname.includes("seller");
-  return (
+  const {showUserLogin} = useAppContext();
+  
+  
+   return (
     <div >
         {
           issellerpath ? null : <Navbar/>
         }
+
+        {showUserLogin? <Login/> : null}
+     
 
 <Toaster/>
         

@@ -8,7 +8,7 @@ import { useAppContext } from '../context/AppContext';
 function Navbar() {
   
     const [open, setOpen] = React.useState(false)
-    const {user, setUser,setshowuserLogin, navigate} = useAppContext();
+    const {user, setUser,setShowUserLogin, navigate} = useAppContext();
 
     const logout = async()=>{
         setUser(null);
@@ -42,7 +42,7 @@ function Navbar() {
                 </div>
 
                 {
-                    !user ? (<button onClick={()=>setshowuserLogin(true)} className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full">
+                    !user ? (<button onClick={()=>setShowUserLogin(true)} className="cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition text-white rounded-full">
                     Login
                 </button>) :(
                          <div className='relative group'>
@@ -74,7 +74,7 @@ function Navbar() {
                    <NavLink to ="/product" onClick={()=> setOpen(false)}>Contact</NavLink>
               
                {
-                !user ? (  <button onClick={() => {setOpen(false) , setshowuserLogin()}} className="cursor-pointer px-6 py-2 mt-2 bg-primary hover:bg-primary-dull transition text-white rounded-full text-sm">
+                !user ? (  <button onClick={() => {setOpen(false) , setShowUserLogin( true)}} className="cursor-pointer px-6 py-2 mt-2 bg-primary hover:bg-primary-dull transition text-white rounded-full text-sm">
                     Login
                 </button>) : (
                       <button onClick={logout} className="cursor-pointer px-6 py-2 mt-2 bg-primary hover:bg-primary-dull transition text-white rounded-full text-sm">

@@ -12,7 +12,7 @@ export const AppContextProvider = ({children}) =>{
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [isSeller, setIsSeller] = useState(false)
-    const [showuserLogin, setshowuserLogin] = useState(false);
+    const [showUserLogin, setShowUserLogin] = useState(false);
     const [products, setProdocts] = useState([]);
     const [cartItems, setCartItems] = useState({});
 
@@ -68,7 +68,7 @@ export const AppContextProvider = ({children}) =>{
     },[])
 
 
-    const value = {navigate, user, setUser , setIsSeller, isSeller ,showuserLogin , setshowuserLogin , products,currency ,addToCart,updateCartitem,removeFromCart,cartItems}
+    const value = {navigate, user, setUser , setIsSeller, isSeller ,showUserLogin , setShowUserLogin , products,currency ,addToCart,updateCartitem,removeFromCart,cartItems}
     
     
 
