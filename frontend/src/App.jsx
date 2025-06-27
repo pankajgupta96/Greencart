@@ -7,6 +7,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import Footer from './components/Footer';
 import { useAppContext } from './context/AppContext';
 import Login from './components/Login';
+import AllProducts from './pages/AllProducts';
 
 function App() {
   const issellerpath = useLocation().pathname.includes("seller");
@@ -28,6 +29,8 @@ function App() {
    <div className= {`${issellerpath ? "" :'px-6 md:px-16 lg:px-24 xl:px-32'}`} >
       <Routes>
         <Route path='/' element={<Home/>}></Route>
+        <Route path='/products' element={<AllProducts/>}></Route>
+
       </Routes>
    </div>
 
