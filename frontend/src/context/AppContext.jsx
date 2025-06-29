@@ -64,12 +64,32 @@ export const AppContextProvider = ({children}) =>{
      // 1:41:12;
 
 
+     const getCartCount = ()=>{
+        let totalCount = 0;
+        for( let item in cartItems){
+            totalCount += cartItems[item]
+        }
+        return totalCount;
+     }
+
+     const getCartAmount =() =>{
+        let totalAmount = 0;
+        for(let item in cartItems){
+            let iteminfo = products.find((product) => product._id === item);
+            if(cartItems[item]>0){
+                totalAmount +=iteminfo.offerPrice *cartItems[item];
+            }
+        }
+        return Math.floor(totalAmount*100)
+     }
+
+
     useEffect (()=>{
         fetchProducts()
     },[])
 
 
-    const value = {navigate, user, setUser , setIsSeller, isSeller ,showUserLogin , setShowUserLogin , products,currency ,addToCart,updateCartitem,removeFromCart,cartItems,setSearchQuery,searchQuery}
+    const value = {navigate, user, setUser , setIsSeller, isSeller ,showUserLogin , setShowUserLogin , products,currency ,addToCart,updateCartitem,removeFromCart,cartItems,setSearchQuery,searchQuery,getCartAmount,getCartCount}
     
     
 
