@@ -43,7 +43,7 @@ const SellerLayout = () => {
                 {sidebarLinks.map((item, index) => (
                     <NavLink to = {item.path} key={item.name} end = {item.path === "/seller"}
                         className= {(isActive) => `flex items-center py-3 px-4 gap-3 
-                            ${isActive ? "border-r-4 md:border-r-[6px] bg-indigo-500/10 border-indigo-500 text-indigo-500"
+                            ${isActive ? "border-r-4 md:border-r-[6px] bg-[#4fbf8b]/10 border-[#4fbf8b] text-[#4fbf8b]"
                                 : "hover:bg-gray-100/90 border-white "
                             }`
                         }
