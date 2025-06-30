@@ -38,8 +38,8 @@ export const AppContextProvider = ({children}) =>{
          toast.success("Added to cart");
     }
 
-    const updateCartitem = (itemId , quantity) =>{
-        let rcatData = structuredClone(cartItems);
+    const updateCartItem = (itemId , quantity) =>{
+        let cartData = structuredClone(cartItems);
         cartData[itemId] =quantity;
         setCartItems(cartData)
         toast.success("Cart Updated");
@@ -74,13 +74,13 @@ export const AppContextProvider = ({children}) =>{
 
      const getCartAmount =() =>{
         let totalAmount = 0;
-        for(let item in cartItems){
-            let iteminfo = products.find((product) => product._id === item);
-            if(cartItems[item]>0){
-                totalAmount +=iteminfo.offerPrice *cartItems[item];
+        for(let items in cartItems){
+            let iteminfo = products.find((product) => product._id === items);
+            if(cartItems[items]>0){
+                totalAmount +=iteminfo.offerPrice *cartItems[items];
             }
         }
-        return Math.floor(totalAmount*100)
+        return Math.floor(totalAmount*100)/100;
      }
 
 
@@ -89,7 +89,7 @@ export const AppContextProvider = ({children}) =>{
     },[])
 
 
-    const value = {navigate, user, setUser , setIsSeller, isSeller ,showUserLogin , setShowUserLogin , products,currency ,addToCart,updateCartitem,removeFromCart,cartItems,setSearchQuery,searchQuery,getCartAmount,getCartCount}
+    const value = {navigate, user, setUser , setIsSeller, isSeller ,showUserLogin , setShowUserLogin , products,currency ,addToCart,updateCartItem,removeFromCart,cartItems,setSearchQuery,searchQuery,getCartAmount,getCartCount}
     
     
 
