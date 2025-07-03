@@ -5,12 +5,16 @@ import connectDB from './configs/db.js';
 import 'dotenv/config'
 import userRouter from './routes/userRoute.js';
 import sellerRouter from './routes/sellerRoute.js';
+import connectCloudinary from './configs/cloudinay.js';
+import productRouter from './routes/productProduct.js';
+import cartRouter from './routes/cartRoute.js';
 
 const app = express();
 const port  = process.env.PORT || 4000;
 await connectDB();
+await connectCloudinary();
 
-// Middleware configratio
+// Middleware configration
 
 
 // Alloww multiplee orgins
@@ -25,6 +29,9 @@ app.get('/', (req,res) => res.send ("API is Working"));
 
 app.use('/api/user', userRouter);
 app.use('api/seller',sellerRouter);
+app.use('/api/product',productRouter);
+app.use('/api/cart',cartRouter);
+
 
 app.listen (port ,()=>{
     console.log(`Server is running on http://localhost:${port}`);
