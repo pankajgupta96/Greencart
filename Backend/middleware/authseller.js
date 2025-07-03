@@ -1,6 +1,6 @@
  import JWT from 'jsonwebtoken';
 
- const authseller = async(req,res , next) =>{
+ const authSeller = async(req,res , next) =>{
    
     const { sellerToken} = req.cookies;
 

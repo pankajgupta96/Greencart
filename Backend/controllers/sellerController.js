@@ -1,5 +1,5 @@
   import JWT from 'jsonwebtoken';
-import User from '../models/User';
+import User from '../models/User.js';
 
  //Login seller : /api/seller/login
  export const sellerLogin  = async(req,res) =>{
