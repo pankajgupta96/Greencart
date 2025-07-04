@@ -2,6 +2,12 @@ import { Children, createContext, useContext, useEffect, useState } from "react"
 import { useNavigate} from "react-router-dom";
 import { dummyProducts } from "../assets/assets";
 import toast from "react-hot-toast";
+import axios from 'axios';
+
+
+axios.defaults.withCredentials = true; // it will send the cookies all to backend in request
+ 
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 export const AppContext = createContext();
 
@@ -17,10 +23,59 @@ export const AppContextProvider = ({children}) =>{
     const [cartItems, setCartItems] = useState({});
     const [searchQuery,setSearchQuery] = useState({});
 
+     
+    // Fetch Seller Status 
+    const fetchSeller = async() =>{
+        try {
+            const {data} = await axios.get('api/seller/is-auth',{
+                withCredentials: true
+            });
+            if(data.success){
+                setIsSeller(true);
+            }else{
+                setIsSeller(false);
+            }
+        } catch (error) {
+            setIsSeller(false);
+            
+        }
+    }
+    
+
+    // Fetch User Auth stauts , User Data and Cart Items
+
+    const fetchUser = async ()=>{
+        try {
+            const {data} = await axios.get('/api/user/is-auth');
+            if(data.success){
+                setUser(data.user)
+                setCartItems(data.user.cartItems)
+
+
+            }
+        } catch (error) {
+            setUser(null)
+          
+            
+        }
+    }
 
 
     const fetchProducts = async ()=>{
-        setProducts(dummyProducts);
+        try {
+            const {data} = await axios.get('/api/product/list');
+            if(data.success){
+               setProducts(data.products)
+            }else{
+                toast.error(data.message)
+                console.log("yha error aa rhi hai");
+                
+            }
+            
+        } catch (error) {
+            toast.error(error.message);
+            
+        }
     }
 
     // add product to cart
@@ -86,10 +141,12 @@ export const AppContextProvider = ({children}) =>{
 
     useEffect (()=>{
         fetchProducts()
+        fetchSeller()
+        fetchUser()
     },[])
 
 
-    const value = {navigate, user, setUser , setIsSeller, isSeller ,showUserLogin , setShowUserLogin , products,currency ,addToCart,updateCartItem,removeFromCart,cartItems,setSearchQuery,searchQuery,getCartAmount,getCartCount}
+    const value = {navigate, user, setUser , setIsSeller, isSeller ,showUserLogin , setShowUserLogin , products,currency ,addToCart,updateCartItem,removeFromCart,cartItems,setSearchQuery,searchQuery,getCartAmount,getCartCount,axios,fetchProducts}
     
     
 
