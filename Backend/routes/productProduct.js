@@ -9,7 +9,7 @@ const productRouter = express.Router();
 productRouter.post('/add',upload.array(["images"]),authSeller,addProduct);
 productRouter.get('/list',productList);
 productRouter.get('/id',ProductById);
-productRouter.post('/id',authSeller,changeStoke);
+productRouter.post('/stock',authSeller,changeStoke);
 
 
 
