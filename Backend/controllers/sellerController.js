@@ -1,4 +1,4 @@
-  import JWT from 'jsonwebtoken';
+import JWT from 'jsonwebtoken';
 import User from '../models/User.js';
 
  //Login seller : /api/seller/login
@@ -9,7 +9,7 @@ import User from '../models/User.js';
      if( password === process.env.SELLER_PASSWORD && email === process.env.SELLER_EMAIL){
         const token = JWT.sign({email}, process.env.JWT_SECRET, {expiresIn : '7d'})
 
-         res.cookie('sellertoken',token,{
+         res.cookie('sellerToken',token,{
             httpOnly : true, 
             secure :process.env.NODE_ENV === 'production', 
             sameSite : process.env.NODE_ENV === 'production' ? 'none' : 'strict'  , 
@@ -50,7 +50,7 @@ import User from '../models/User.js';
 
 export const sellerLogout = async ( req, res) =>{
     try{
-        res.clearCookie('sellerToken',{
+        res.clearCookie('sellertoken',{
             httpOnly : true,
             secure : process.env.NODE_ENV === 'production',
             sameSite:process.env.NODE_ENV === 'production' ? 'none':'strict'
