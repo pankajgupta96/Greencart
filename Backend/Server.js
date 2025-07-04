@@ -24,13 +24,13 @@ const allowedOrigins = ['http://localhost:5173']
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({origin : allowedOrigins, Credentials: true}));
+app.use(cors({origin : allowedOrigins, credentials: true}));
 
 
 app.get('/', (req,res) => res.send ("API is Working"));
 
 app.use('/api/user', userRouter);
-app.use('api/seller',sellerRouter);
+app.use('/api/seller',sellerRouter);
 app.use('/api/product',productRouter);
 app.use('/api/cart',cartRouter);
 app.use('/api/address',addressRouter);
