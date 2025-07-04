@@ -10,9 +10,9 @@
     }
 
     try{
-        const tokenDecode = JWT.verify (sellerToken,process.env.JWT_SECRECT)
+        const tokenDecode = JWT.verify (sellerToken,process.env.JWT_SECRET)
         if( tokenDecode.email === process.env.SELLER_EMAIL){
-            req.userId = tokenDecode.id;
+            req.userEmail = tokenDecode.email;
             next();
         }
         else{
