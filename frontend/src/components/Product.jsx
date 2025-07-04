@@ -2,8 +2,8 @@ import React from "react";
 import { assets } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
 const Product = ({product}) => {
-    const [count, setCount] = React.useState(0);
-  const {currency,addToCart,updateCartitem,removeFromCart, navigate,cartItems} = useAppContext();
+const [count, setCount] = React.useState(0);
+const {currency,addToCart,updateCartitem,removeFromCart, navigate,cartItems} = useAppContext();
    
     
 
