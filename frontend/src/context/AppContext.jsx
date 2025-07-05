@@ -5,7 +5,8 @@ import toast from "react-hot-toast";
 import axios from 'axios';
 
 
-axios.defaults.withCredentials = true; // it will send the cookies all to backend in request
+axios.defaults.withCredentials = true;
+ // it will send the cookies all to backend in request
  
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
@@ -145,8 +146,29 @@ export const AppContextProvider = ({children}) =>{
         fetchUser()
     },[])
 
+  
+    // save cart in database
 
-    const value = {navigate, user, setUser , setIsSeller, isSeller ,showUserLogin , setShowUserLogin , products,currency ,addToCart,updateCartItem,removeFromCart,cartItems,setSearchQuery,searchQuery,getCartAmount,getCartCount,axios,fetchProducts}
+  useEffect(()=>{
+        const  updateCart = async ()=>{
+            try {
+                const {data} = await axios.post("/api/cart/update", { userId:user._id,cartItems})
+                if(!data.success){
+                   toast.error(data.message)
+                } 
+            } catch (error) {
+                toast.error(error.message)
+                
+            }
+        }
+       
+        if (user && user._id) {
+    updateCart();
+}
+   }, [cartItems])
+
+
+    const value = {navigate, user, setUser , setCartItems,setIsSeller, isSeller ,showUserLogin , setShowUserLogin , products,currency ,addToCart,updateCartItem,removeFromCart,cartItems,setSearchQuery,searchQuery,getCartAmount,getCartCount,axios,fetchProducts}
     
     
 
