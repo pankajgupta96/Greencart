@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { assets, dummyAddress } from "../assets/assets";
+import toast from "react-hot-toast";
 
 const Cart = () => {
-    const [showAddress, setShowAddress] = useState(dummyAddress);
+    const [showAddress, setShowAddress] = useState();
 
-    const {products,currency,cartItems,removeFromCart,getCartCount,updateCartItem,navigate,getCartAmount} =useAppContext();
+    const {user,products,currency,cartItems,removeFromCart,getCartCount,updateCartItem,navigate,getCartAmount,axios,setCartItems} =useAppContext();
 
     const [cartArray, setCartArray] = useState([]);
-    const [addresses, setAddresses] = useState(dummyAddress);
-    const [selectedAddress, SetSelectedAddress] = useState(dummyAddress[0]);
-const [paymentOption, setPaymentOption] = useState("COD");
+    const [addresses, setAddresses] = useState([]);
+    const [selectedAddress, SetSelectedAddress] = useState(null);
+    const [paymentOption, setPaymentOption] = useState("COD");
 
 const getCart = ()=>{
     let tempArray =[]
@@ -22,16 +23,85 @@ const getCart = ()=>{
     setCartArray(tempArray);
 }
 
-const placeOrder = async ()=>{
-      
+const getUserAddress = async()=>{
+    try{
+        const {data} = await axios.get('/api/address/get',{
+            params: { userId: user._id }
+        });
+        if(data.success){
+            setAddresses(data.addresses);
+            if( data.addresses.length>0){
+                SetSelectedAddress(data.addresses[0]);
+            }
+       } else {
+    toast.error(data.message);
+}
+} catch (error) {
+    toast.error(error.message);
+}
+
+    
 }
 
 useEffect(()=>{
-    if(products.length>0 && cartItems){
-        getCart();
+    if(user){
+    getUserAddress();
     }
- 
-},[products,cartItems])
+},[user])
+
+
+const placeOrder = async () => {
+  try {
+    if (!selectedAddress) {
+      return toast.error("Please select an address");
+    }
+
+    if (paymentOption === "COD") {
+      const { data } = await axios.post('/api/order/cod', {
+        userId: user._id,
+        items: cartArray.map(item => ({ product: item._id, quantity: item.quantity })),
+        address: selectedAddress._id
+      });
+
+      if (data.success) {
+        toast.success(data.message);
+        setCartItems({});
+        navigate("/my-orders");
+      } else {
+        toast.error(data.message);
+      }
+    }else{
+      //place order with stripe
+      const { data } = await axios.post('/api/order/stripe', {
+        userId: user._id,
+        items: cartArray.map(item => ({ product: item._id, quantity: item.quantity })),
+        address: selectedAddress._id
+      });
+
+      if (data.success) {
+       window.location.replace(data.url)
+      } else {
+        toast.error(data.message);
+      }
+    }
+  } catch (error) {
+    toast.error(error.message);
+    console.log("Place order error:", error.message);
+  }
+};
+
+    useEffect(()=>{
+        if(products.length > 0 && cartItems){
+            getCart()
+        }
+    }, [products, cartItems])
+    
+  useEffect(()=>{
+    if(user){
+      getUserAddress()
+    }
+
+  },[user])
 
 
 //3:34
@@ -52,7 +122,7 @@ useEffect(()=>{
                 {cartArray.map((product, index) => (
                     <div key={index} className="grid grid-cols-[2fr_1fr_1fr] text-gray-500 items-center text-sm md:text-base font-medium pt-3">
                         <div className="flex items-center md:gap-6 gap-3">
-                            <div onClick={() =>{navigate(`/products/$ {product.category.toLowerCase()}/${product._id}`);scrollTo(0,0)}}  className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded">
+                            <div onClick={() =>{navigate(`/products/${product.category.toLowerCase()}/${product._id}`);scrollTo(0,0)}}  className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded">
                                 <img className="max-w-full h-full object-cover" src={product.image[0]} alt={product.name} />
                             </div>
                             <div>
