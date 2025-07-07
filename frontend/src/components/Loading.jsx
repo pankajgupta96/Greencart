@@ -78,7 +78,7 @@ const Loading = () => {
     useEffect(() => {
         if (nextUrl) {
             setTimeout(() => {
-                navigate(nextUrl.trim())  // ✅ Trimmed
+                navigate(nextUrl.trim())  
             }, 5000)
         } else {
             navigate('/')
