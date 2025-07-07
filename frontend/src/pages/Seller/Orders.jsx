@@ -1,16 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { useAppContext } from '../../context/AppContext';
 import { assets, dummyAddress, dummyOrders } from '../../assets/assets';
+import toast from 'react-hot-toast';
+import AllAddress from '../AddAddress';
 
 const Orders = () => {
     const boxIcon = "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/e-commerce/boxIcon.svg"
 
-     const {currency} = useAppContext();
+     const {currency,axios} = useAppContext();
      const [orders,setOrders] = useState([])
 
      const fetchOrders = async() =>{
-      setOrders(dummyOrders);
-     }
+          try {
+                  const {data} = await axios.get('/api/order/seller');
+                  if(data.success){
+                    setOrders(data.orders);
+
+                  }
+                  else{
+                    toast.error(data.message);
+                  }
+
+          } catch (error) {
+                toast.error(error.message);
+            
+          }
+     };
 
 
      useEffect(()=>{
@@ -28,6 +43,7 @@ const Orders = () => {
                         <img className="w-12 h-12 object-cover " src={assets.box_icon} alt="boxIcon" />
                         <div >
                             {order.items.map((item, index) => (
+                                
                                 <div key={index} className="flex flex-col">
                                     <p className="font-medium">
                                         {item.product.name}{" "} <span className= "text-primary">x {item.quantity}</span>
@@ -36,6 +52,8 @@ const Orders = () => {
                             ))}
                         </div>
                     </div>
+
+                    console.log("Address:", order.address);
 
                     <div className="text-sm md:text-base text-balck/60">
                         <p className='text-black/80'>
