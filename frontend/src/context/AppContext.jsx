@@ -128,16 +128,28 @@ export const AppContextProvider = ({children}) =>{
         return totalCount;
      }
 
-     const getCartAmount =() =>{
-        let totalAmount = 0;
-        for(let items in cartItems){
-            let iteminfo = products.find((product) => product._id === items);
-            if(cartItems[items]>0){
-                totalAmount +=iteminfo.offerPrice *cartItems[items];
-            }
+    //  const getCartAmount =() =>{
+    //     let totalAmount = 0;
+    //     for(let items in cartItems){
+    //         let iteminfo = products.find((product) => product._id === items);
+    //         if(cartItems[items]>0){
+    //             totalAmount +=iteminfo.offerPrice *cartItems[items];
+    //         }
+    //     }
+    //     return Math.floor(totalAmount*100)/100;
+    //  }
+
+    const getCartAmount = () => {
+    let totalAmount = 0;
+    for (let itemId in cartItems) {
+        let iteminfo = products.find((product) => product._id === itemId);
+        if (iteminfo && cartItems[itemId] > 0) {
+            totalAmount += iteminfo.offerPrice * cartItems[itemId];
         }
-        return Math.floor(totalAmount*100)/100;
-     }
+    }
+    return Math.floor(totalAmount * 100) / 100;
+};
+
 
 
     useEffect (()=>{
