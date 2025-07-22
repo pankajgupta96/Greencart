@@ -9,7 +9,14 @@ const Footer = () => {
         <div className="px-6 md:px-16 lg:px-24 xl:px-32 mt-24 bg-primary/10">
             <div className="flex flex-col md:flex-row items-start justify-between gap-10 py-10 border-b border-gray-500/30 text-gray-500">
                 <div>
-                    <img className="w-34 md:w-32" src={assets.logo} alt="logo" />
+                    {/* <img className="w-34 md:w-32" src={assets.logo} alt="logo" /> */}
+               <div className="flex items-center">
+  <img className="w-10 md:w-12" src={assets.logo2} alt="logo" />
+  <p className="text-green-700 font-bold text-2xl md:text-3xl">
+    Snap<span className="text-orange-500">Gro</span>
+  </p>
+</div>
+
                     <p className="max-w-[410px] mt-6">We Deliver fresh groceries and snacks straight to your door. Trusted by thousands, we aim to make your shopping experience simple and affordable</p>
                 </div>
                 <div className="flex flex-wrap justify-between w-full md:w-[45%] gap-5">
