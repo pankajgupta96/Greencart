@@ -21,7 +21,7 @@ await connectCloudinary();
 
 
 // Alloww multiplee orgins
-const allowedOrigins = ['http://localhost:5173']
+const allowedOrigins = ['http://localhost:5173','https://snapgro-alpha.vercel.app']
 
 app.post('/stripe' , express.raw({type: 'application/json'}) , stripeWebhooks);
 
