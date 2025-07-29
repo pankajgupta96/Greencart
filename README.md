@@ -1,2 +1,2 @@
-# Greencart
+# SnapGro – A Daily Grocery Partner
 
